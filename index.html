@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAWN | Wear The Vision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* -------------------------------------
+        🎨 DESIGN & THEME (هوية التصميم الأصلية)
+        -------------------------------------
+        */
+        :root {
+            --bg-color: #0b0b10;
+            --panel-color: rgba(20, 20, 30, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0b0;
+            --neon-cyan: #00e5ff;
+            --neon-purple: #9c27ff;
+            --shadow-color-1: rgba(0, 229, 255, 0.15);
+            --shadow-color-2: rgba(156, 39, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background wave animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 25%, var(--shadow-color-2), transparent 40%),
+                radial-gradient(circle at 85% 75%, var(--shadow-color-1), transparent 40%);
+            animation: slow-wave 15s ease-in-out infinite;
+        }
+
+        @keyframes slow-wave {
+            0% {
+                background-position: 0% 50%, 0% 50%;
+                opacity: 0.7;
+            }
+            50% {
+                background-position: 100% 50%, 100% 50%;
+                opacity: 1;
+            }
+            100% {
+                background-position: 0% 50%, 0% 50%;
+                opacity: 0.7;
+            }
+        }
+
+        /* Main container with glassmorphism */
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--panel-color);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2.5rem 3rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* -------------------------------------
+        🔱 HEADER SECTION
+        -------------------------------------
+        */
+        header {
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo .logo-kawn {
+            color: #fff;
+            display: inline-block;
+            text-shadow: 
+                0 0 8px var(--neon-cyan),
+                0 0 16px var(--neon-cyan),
+                0 0 32px var(--neon-purple);
+            animation: pulse-glow 2.5s ease-in-out infinite;
+        }
+        
+        /* 🌪️ Real Tornado Cursor Style with Electricity ⚡ */
+        .logo .cursor {
+            display: inline-flex; /* Changed to inline-flex for centering tornado */
+            justify-content: center;
+            align-items: center;
+            margin-left: 8px;
+            font-size: 2.2rem; /* Size of the tornado character */
+            vertical-align: middle;
+            color: var(--neon-cyan);
+            position: relative;
+            width: 45px; /* Adjust size of container for tornado and electricity */
+            height: 45px;
+            box-sizing: border-box; /* Ensure padding/border doesn't mess with size */
+            
+            /* Main tornado glow */
+            filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 15px var(--neon-purple));
+            
+            animation: cursor-glow 3s ease-in-out infinite; /* Overall glow/pulse */
+        }
+        
+        .logo .cursor.hidden {
+            display: none;
+        }
+
+        .tornado-core {
+            display: block; /* The actual tornado emoji */
+            animation: rotate-tornado 4s linear infinite;
+        }
+
+        /* Electricity effect */
+        .electricity-spark {
+            position: absolute;
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(2px) drop-shadow(0 0 5px var(--neon-cyan)) drop-shadow(0 0 10px var(--neon-purple));
+            animation: electricity-burst 2s ease-out infinite;
+        }
+
+        .electricity-spark:nth-child(1) { width: 6px; height: 6px; animation-delay: 0s; }
+        .electricity-spark:nth-child(2) { width: 8px; height: 8px; animation-delay: 0.5s; }
+        .electricity-spark:nth-child(3) { width: 5px; height: 5px; animation-delay: 1s; }
+        .electricity-spark:nth-child(4) { width: 7px; height: 7px; animation-delay: 1.5s; }
+
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 
+                    0 0 8px var(--neon-cyan),
+                    0 0 16px var(--neon-cyan),
+                    0 0 32px var(--neon-purple);
+            }
+            50% {
+                transform: scale(1.02);
+                text-shadow: 
+                    0 0 12px var(--neon-cyan),
+                    0 0 24px var(--neon-cyan),
+                    0 0 48px var(--neon-purple);
+            }
+        }
+        
+        @keyframes rotate-tornado {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes cursor-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 15px var(--neon-purple));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px var(--neon-cyan)) drop-shadow(0 0 25px var(--neon-purple)) drop-shadow(0 0 5px #fff);
+            }
+        }
+
+        @keyframes electricity-burst {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+                transform: translate(var(--x, 0) * 0.5px, var(--y, 0) * 0.5px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x, 0) * 1.5px, var(--y, 0) * 1.5px) scale(0.5);
+            }
+        }
+        /* Randomize spark directions (CSS variables are cool!) */
+        .electricity-spark:nth-child(1) { --x: 30; --y: -40; }
+        .electricity-spark:nth-child(2) { --x: -25; --y: 35; }
+        .electricity-spark:nth-child(3) { --x: 40; --y: 20; }
+        .electricity-spark:nth-child(4) { --x: -30; --y: -30; }
+
+
+        .tagline {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            animation: fadeIn 1.5s 0.5s ease-out backwards;
+        }
+
+        /* -------------------------------------
+        🖼️ MAIN INTERFACE
+        -------------------------------------
+        */
+        .interface {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .upload-panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            transition: grid-template-columns 0.4s ease;
+        }
+
+        .upload-panel {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            color: var(--text-secondary);
+        }
+        
+        /* Glowing border effect */
+        .upload-panel::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 18px; /* Slightly larger than panel */
+            background: linear-gradient(120deg, var(--neon-cyan), var(--neon-purple));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .upload-panel:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-style: solid;
+            color: var(--text-primary);
+        }
+
+        .upload-panel:hover::before {
+            opacity: 1;
+            animation: gradient-move 3s linear infinite;
+        }
+
+        .upload-panel-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 1rem;
+            stroke: var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .upload-panel:hover .upload-panel-icon {
+            stroke: #fff;
+            transform: scale(1.1);
+        }
+
+        .upload-panel h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary); /* تمت الترقية ليكون أوضح */
+        }
+        
+        .upload-panel p {
+            font-size: 0.85rem;
+        }
+        
+        .upload-panel .file-name {
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            margin-top: 0.5rem;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .upload-panel input[type="file"] {
+            display: none;
+        }
+
+        .prompt-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.9rem 1.2rem;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--shadow-color-1);
+        }
+
+        .mode-selector {
+            display: grid; /* ترقية: استخدام جريد لـ 3 أزرار */
+            grid-template-columns: 1fr 1fr 1fr;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .mode-toggle-btn {
+            /* flex: 1; - تم الإلغاء */
+            padding: 0.9rem 0.5rem; /* تعديل البادينج */
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mode-toggle-btn.active {
+            color: #fff;
+        }
+
+        /* Animated underline/background for active state */
+        .mode-toggle-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 3px;
+            animation: gradient-move 3s linear infinite, slide-in 0.3s ease;
+        }
+
+        @keyframes slide-in {
+            from {
+                width: 0;
+                left: 50%;
+                right: 50%;
+            }
+            to {
+                width: 80%;
+                left: 10%;
+                right: 10%;
+            }
+        }
+        
+        .cta-button {
+            width: 100%;
+            padding: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan));
+            background-size: 200% 100%;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            background-position: 100% 0;
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 20px var(--shadow-color-1),
+                0 0 30px var(--shadow-color-2);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* -------------------------------------
+        🧩 FUNCTIONAL BEHAVIOR (mocked)
+        -------------------------------------
+        */
+        .output-section {
+            width: 100%;
+            min-height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow: hidden;
+            transition: min-height 0.3s ease, background-color 0.3s ease;
+            direction: ltr; /* لضمان عرض اللودر بشكل صحيح */
+        }
+
+        .loader {
+            display: none; /* Changed by JS */
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem; /* زيادة المسافة */
+        }
+
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--glass-border);
+            border-top-color: var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loader-text {
+            font-size: 1rem;
+            color: var(--text-primary); /* ترقية اللون */
+            font-weight: 500;
+            transition: opacity 0.3s ease; /* تأثير دخول وخروج ناعم للنص */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-container {
+            display: none; /* Changed by JS */
+            width: 100%;
+            animation: result-fade-in 0.8s ease;
+        }
+
+        @keyframes result-fade-in {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #result-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .placeholder-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            padding: 2rem;
+        }
+
+        /* -------------------------------------
+        💎 FOOTER SECTION
+        -------------------------------------
+        */
+        footer {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer-line {
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-line.arabic {
+            direction: rtl;
+        }
+
+        .footer-line .icon {
+            display: inline-block;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            animation: rotate-tornado 4s linear infinite; /* Reuse tornado rotation for icon */
+        }
+
+        .footer-line .brand {
+            font-weight: 600;
+            display: inline-block;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-cyan));
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-move 5s linear infinite;
+        }
+
+        @keyframes gradient-move {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* -------------------------------------
+        ⚙️ RESPONSIVENESS
+        -------------------------------------
+        */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .main-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+            .logo .cursor {
+                font-size: 1.8rem;
+                width: 35px;
+                height: 35px;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
+            }
+
+            .upload-panels {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            /* لوضع الموديل البشري والمنتجات */
+            .upload-panels.human-mode,
+            .upload-panels.product-mode {
+                grid-template-columns: 1fr;
+            }
+            #model-upload-panel.human-mode,
+            #model-upload-panel.product-mode {
+                display: block;
+            }
+            
+            /* لوضع الموديل الخفي */
+            #model-upload-panel.ghost-mode {
+                display: none;
+            }
+
+            .upload-panel {
+                padding: 2rem 1rem;
+            }
+            
+            .mode-selector {
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+            }
+            
+            .mode-toggle-btn.active::after {
+                height: 2px;
+            }
+            
+            .output-section {
+                min-height: 250px;
+            }
+            
+            footer {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+             /* لوضع الموديل الخفي */
+             .upload-panels.ghost-mode {
+                grid-template-columns: 1fr;
+            }
+            #model-upload-panel.ghost-mode {
+                display: none;
+            }
+            #design-upload-panel.ghost-mode {
+                grid-column: 1 / -1;
+            }
+            
+            /* لوضع الموديل البشري والمنتجات */
+            .upload-panels.human-mode,
+            .upload-panels.product-mode {
+                grid-template-columns: 1fr 1fr;
+            }
+            #model-upload-panel.human-mode,
+            #model-upload-panel.product-mode {
+                display: block;
+            }
+            #design-upload-panel.human-mode,
+            #design-upload-panel.product-mode {
+                grid-column: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            .logo .cursor {
+                font-size: 1.6rem;
+                width: 30px;
+                height: 30px;
+            }
+            .mode-selector {
+                 font-size: 0.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <header>
+            <h1 id="logo" class="logo"></h1>
+            <p class="tagline">Transform your designs into living reality.</p>
+        </header>
+
+        <main class="interface">
+            
+            <div class="mode-selector">
+                <button id="mode-human" class="mode-toggle-btn active">Apparel (Human)</button>
+                <button id="mode-ghost" class="mode-toggle-btn">Apparel (Ghost)</button>
+                <button id="mode-product" class="mode-toggle-btn">Product Studio</button>
+            </div>
+
+            <div class="upload-panels human-mode" id="upload-panels-container">
+                <div class="upload-panel" id="design-upload-panel">
+                    <input type="file" id="design-input" accept="image/png, image/jpeg, image/webp">
+                    <svg class="upload-panel-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5m0-13.5L12 3Z" />
+                    </svg>
+                    <h3 id="design-panel-title">Upload Your Design</h3>
+                    <p id="design-panel-subtitle">(T-shirt Artwork)</p>
+                    <div class="file-name" id="design-file-name"></div>
+                </div>
+                
+                <div class="upload-panel" id="model-upload-panel">
+                    <input type="file" id="model-input" accept="image/png, image/jpeg, image/webp">
+                    <svg class="upload-panel-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm16.5-1.5H3.75V6H20.25v12Z" />
+                    </svg>
+                    <h3 id="model-panel-title">Upload Model Image</h3>
+                    <p id="model-panel-subtitle">(Person or Mannequin)</p>
+                    <div class="file-name" id="model-file-name"></div>
+                </div>
+            </div>
+            
+            <input type="text" id="prompt-input" class="prompt-input" placeholder="Describe the style (e.g., 'vintage wash', 'puffy print', 'studio lighting')">
+            
+            <button id="generate-btn" class="cta-button">Generate Mockup</button>
+            
+            <div id="output-section" class="output-section">
+                <div id="loader" class="loader">
+                    <div class="loader-spinner"></div>
+                    <span id="loader-text" class="loader-text">Synthesizing your vision...</span>
+                </div>
+                
+                <div id="result-container" class="result-container">
+                    <img id="result-image" src="" alt="Generated Mockup">
+                </div>
+
+                <div id="placeholder-text" class="placeholder-text">
+                    <p>Your generated mockup will appear here.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer>
+        <p class="footer-line arabic">
+            مدعوم برؤية <span class="brand">كوني أي آي</span> 
+            <span class="icon">⚡</span> 
+            مالك محمود
+        </p>
+        <p class="footer-line english">
+            Powered by <span class="brand">KONY AI</span> 
+            <span class="icon">⚡</span> 
+            Malek Mahmoud
+        </p>
+    </footer>
+
+    <script>
+        /*
+        -------------------------------------
+        🪄 AI ENGINE DESCRIPTION (تمت الترقية بناءً على وصفك)
+        -------------------------------------
+        The system uses the "Nano Banana" (gemini-2.5-flash-image-preview) AI model for realistic integration.
+        
+        Key Capabilities (Mocked):
+        - Utilizes advanced "depth mapping" and "cloth deformation" algorithms for precise analysis.
+        - Wraps the 2D design onto the fabric, realistically conforming to 100% of lighting, texture, folds, and shadows.
+        - A "Stability Layer" ensures 100% consistency for design placement, angle, and seed for repeated generations.
+        - Preserves the human model’s natural pose.
+        - Supports 3 modes: "Human Mode", "Ghost Mode" (Invisible Model), and "Product Studio" for scene integration.
+        -------------------------------------
+        */
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- DOM Elements ---
+            const logoEl = document.getElementById('logo');
+            const generateBtn = document.getElementById('generate-btn');
+            const loaderEl = document.getElementById('loader');
+            const loaderTextEl = document.getElementById('loader-text'); // نص التحميل الديناميكي
+            const resultContainer = document.getElementById('result-container');
+            const resultImage = document.getElementById('result-image');
+            const outputSection = document.getElementById('output-section');
+            const placeholderText = document.getElementById('placeholder-text');
+
+            // أزرار التبويبات
+            const modeHuman = document.getElementById('mode-human');
+            const modeGhost = document.getElementById('mode-ghost');
+            const modeProduct = document.getElementById('mode-product'); // الزر الجديد
+            
+            const uploadPanelsContainer = document.getElementById('upload-panels-container');
+            const designUploadPanel = document.getElementById('design-upload-panel');
+            const modelUploadPanel = document.getElementById('model-upload-panel');
+            
+            // عناصر النصوص الديناميكية
+            const designPanelTitle = document.getElementById('design-panel-title');
+            const designPanelSubtitle = document.getElementById('design-panel-subtitle');
+            const modelPanelTitle = document.getElementById('model-panel-title');
+            const modelPanelSubtitle = document.getElementById('model-panel-subtitle');
+
+            const designInput = document.getElementById('design-input');
+            const modelInput = document.getElementById('model-input');
+            const promptInput = document.getElementById('prompt-input');
+            
+            const designFileName = document.getElementById('design-file-name');
+            const modelFileName = document.getElementById('model-file-name');
+            
+            let currentMode = 'human'; // 'human', 'ghost', 'product'
+            let loaderInterval; // للتحكم في نص التحميل
+
+            // --- Header Logo Typing Animation (with 🌪️ + ⚡) ---
+            const logoBaseText = '<span class="logo-kawn" data-text="KAWN"></span>';
+            const logoExtraText = ' | Wear The Vision';
+            let charIndex = 0;
+            let isTyping = true;
+            let cursorEl;
+            
+            function typeLogo() {
+                isTyping = true;
+                if (charIndex <= logoExtraText.length) {
+                    if (logoEl) {
+                        logoEl.innerHTML = `${logoBaseText}${logoExtraText.substring(0, charIndex)}<span class="cursor"><span class="tornado-core">🌪️</span><span class="electricity-spark"></span><span class="electricity-spark"></span><span class="electricity-spark"></span><span class="electricity-spark"></span></span>`;
+                    }
+                    charIndex++;
+                    setTimeout(typeLogo, 100);
+                } else {
+                    isTyping = false;
+                    if (logoEl) {
+                        logoEl.innerHTML = `${logoBaseText}${logoExtraText}<span class="cursor hidden"><span class="tornado-core">🌪️</span><span class="electricity-spark"></span><span class="electricity-spark"></span><span class="electricity-spark"></span><span class="electricity-spark"></span></span>`;
+                        cursorEl = logoEl.querySelector('.cursor');
+                    }
+                    if (cursorEl) {
+                        cursorEl.classList.remove('hidden');
+                    }
+                }
+            }
+
+            function resetLogoAnimation() {
+                if (isTyping) return; // Don't restart if already typing
+                charIndex = 0;
+                typeLogo();
+            }
+
+            // Start typing on load
+            if (logoEl) {
+                typeLogo();
+                // Restart animation every 8 seconds
+                setInterval(resetLogoAnimation, 8000);
+            }
+
+            // --- 🚀 ترقية: دالة مركزية لتغيير الوضع ---
+            function setMode(newMode) {
+                currentMode = newMode;
+                
+                // 1. تحديث الأزرار
+                modeHuman.classList.toggle('active', newMode === 'human');
+                modeGhost.classList.toggle('active', newMode === 'ghost');
+                modeProduct.classList.toggle('active', newMode === 'product');
+
+                // 2. تحديث لوحات الرفع
+                uploadPanelsContainer.classList.remove('human-mode', 'ghost-mode', 'product-mode');
+                uploadPanelsContainer.classList.add(`${newMode}-mode`);
+
+                modelUploadPanel.classList.remove('human-mode', 'ghost-mode', 'product-mode');
+                modelUploadPanel.classList.add(`${newMode}-mode`);
+                
+                designUploadPanel.classList.remove('human-mode', 'ghost-mode', 'product-mode');
+                designUploadPanel.classList.add(`${newMode}-mode`);
+
+                // 3. تحديث نصوص لوحات الرفع
+                if (newMode === 'human') {
+                    designPanelTitle.textContent = 'Upload Your Design';
+                    designPanelSubtitle.textContent = '(T-shirt Artwork)';
+                    modelPanelTitle.textContent = 'Upload Model Image';
+                    modelPanelSubtitle.textContent = '(Person or Mannequin)';
+                } else if (newMode === 'ghost') {
+                    // في وضع الشبح، اللوحة الثانية مخفية، لكن نضبط النصوص احتياطاً
+                    designPanelTitle.textContent = 'Upload Your Design';
+                    designPanelSubtitle.textContent = '(T-sihrt Artwork)';
+                    modelPanelTitle.textContent = 'Upload Model Image';
+                    modelPanelSubtitle.textContent = '(Person or Mannequin)';
+                } else if (newMode === 'product') {
+                    designPanelTitle.textContent = 'Upload Your Product';
+                    designPanelSubtitle.textContent = '(e.g., Chips Bag, Bottle, Box)';
+                    modelPanelTitle.textContent = 'Upload Background (Optional)';
+                    modelPanelSubtitle.textContent = '(Studio Scene, Outdoor, etc.)';
+                }
+                
+                // مسح أسماء الملفات عند تغيير الوضع
+                designFileName.textContent = '';
+                modelFileName.textContent = '';
+                designInput.value = '';
+                modelInput.value = '';
+            }
+
+            // --- ربط الأزرار بالدالة الجديدة ---
+            if(modeHuman && modeGhost && modeProduct) {
+                modeHuman.addEventListener('click', () => setMode('human'));
+                modeGhost.addEventListener('click', () => setMode('ghost'));
+                modeProduct.addEventListener('click', () => setMode('product'));
+            }
+
+            // --- File Upload Panel Functionality ---
+            function setupUploadPanel(panel, input, fileNameEl) {
+                if (!panel || !input || !fileNameEl) return;
+                
+                panel.addEventListener('click', () => {
+                    input.click();
+                });
+                
+                input.addEventListener('change', () => {
+                    if (input.files && input.files.length > 0) {
+                        fileNameEl.textContent = input.files[0].name;
+                    }
+                });
+            }
+            
+            setupUploadPanel(designUploadPanel, designInput, designFileName);
+            setupUploadPanel(modelUploadPanel, modelInput, modelFileName);
+
+
+            // --- 🚀 ترقية: نصوص التحميل الديناميكية (بناءً على وصفك) ---
+            const loadingSteps = [
+                "بدء المعالجة...",
+                "تحليل خرائط العمق (Depth Mapping)...",
+                "تطبيق تشوه القماش (Cloth Deformation)...",
+                "محاكاة الإضاءة والظلال الواقعية...",
+                "تطبيق طبقة التثبيت (Stability Layer)...",
+                "جارٍ إنشاء الرؤية النهائية..."
+            ];
+            
+            const productLoadingSteps = [
+                "بدء المعالجة...",
+                "تحليل أبعاد المنتج...",
+                "تحليل إضاءة الخلفية والظلال...",
+                "دمج المنتج بشكل واقعي...",
+                "تطبيق طبقة التثبيت (Stability Layer)...",
+                "جارٍ إنشاء المشهد النهائي..."
+            ];
+
+            function startLoaderAnimation() {
+                let currentStep = 0;
+                const steps = (currentMode === 'product') ? productLoadingSteps : loadingSteps;
+                
+                // إيقاف أي عداد قديم
+                if (loaderInterval) clearInterval(loaderInterval);
+
+                // البدء فوراً
+                loaderTextEl.style.opacity = 1;
+                loaderTextEl.textContent = steps[currentStep];
+                
+                loaderInterval = setInterval(() => {
+                    currentStep = (currentStep + 1) % steps.length;
+                    
+                    // تأثير التلاشي
+                    loaderTextEl.style.opacity = 0;
+                    
+                    setTimeout(() => {
+                        loaderTextEl.textContent = steps[currentStep];
+                        loaderTextEl.style.opacity = 1;
+                    }, 300); // نصف مدة الانتظار
+
+                }, 2000); // تغيير النص كل ثانيتين
+            }
+
+            function stopLoaderAnimation() {
+                if (loaderInterval) clearInterval(loaderInterval);
+                loaderInterval = null;
+            }
+
+
+            // --- Generate Functionality ---
+            if (generateBtn) {
+                generateBtn.addEventListener('click', () => {
+                    
+                    // 1. Show loader
+                    if (placeholderText) placeholderText.style.display = 'none';
+                    if (resultContainer) resultContainer.style.display = 'none';
+                    if (loaderEl) loaderEl.style.display = 'flex';
+                    if (outputSection) outputSection.style.minHeight = '300px';
+                    
+                    // 2. 🚀 بدء عرض نصوص التحميل الديناميكية
+                    startLoaderAnimation();
+                    
+                    // 3. Start the *REAL* API call
+                    callNanoBananaAPI();
+                });
+            }
+            
+            /*
+            -----------------------------------------------------------------
+                🤖 الكود الحقيقي لربط الواجهة بالسيرفر 🤖
+                
+                ده الكود *المعدل* اللي بيربط الموقع بالسيرفر (api/index.js)
+                اللي عملناه. ده الكود الآمن والصحيح.
+            -----------------------------------------------------------------
+            */
+            
+            // Helper function to convert a File object to a Base64 string for the API
+            async function fileToGenerativePart(file) {
+                const base64EncodedDataPromise = new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                    reader.readAsDataURL(file);
+                });
+                return {
+                    inlineData: { data: await base64EncodedDataPromise, mimeType: file.type }
+                };
+            }
+
+            // Main function to call the API
+            async function callNanoBananaAPI() {
+                
+                // 1. Get all inputs
+                const designFile = designInput.files[0]; // (التصميم أو المنتج)
+                const modelFile = modelInput.files[0]; // (الموديل أو الخلفية)
+                const userPrompt = promptInput.value;
+                
+                // --- Simple Validation ---
+                if (!designFile) {
+                    alert("Error: Design/Product file is missing.");
+                    stopLoaderAnimation();
+                    if (loaderEl) loaderEl.style.display = 'none';
+                    if (placeholderText) placeholderText.style.display = 'block';
+                    return;
+                }
+                if (currentMode === 'human' && !modelFile) {
+                    alert("Error: Model file is missing for Human Mode.");
+                    stopLoaderAnimation();
+                    if (loaderEl) loaderEl.style.display = 'none';
+                    if (placeholderText) placeholderText.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    // 3. Prepare the API payload
+                    
+                    // ❗️❗️ التعديل الأهم: ده الرابط بتاع السيرفر بتاعنا
+                    const apiUrl = '/api'; // This now points to our api/index.js server
+
+                    const parts = [];
+                    let finalPrompt = "";
+                    
+                    // ***** 🚀 PROGRAMMING REQUEST: Use specific, powerful prompts (بناءً على طلبك) *****
+                    
+                    if (currentMode === 'human') {
+                        // Human Mode: Send both images and a prompt
+                        finalPrompt = `أنت خبير دمج صور فوتوغرافي محترف (Photorealistic Integration Expert). مهمتك هي دمج هذا التصميم (الصورة 1) على ملابس الشخص في (الصورة 2). 
+                        يجب أن يبدو التصميم واقعياً تماماً وكأنه تم تصويره في الحقيقة على الشخص.
+                        يجب تطبيق خوارزميات "cloth deformation" و "depth mapping" لمطابقة 100% لكل ثنيات القماش، الانحناءات، الإضاءة، والظلال والتجاعيد. 
+                        أريد دمجاً احترافياً بدون أي خطأ. حافظ على دقة التصميم الأصلي وجودته.
+                        استخدم "Stability Layer" لتثبيت موقع التصميم وحجمه وزاويته.
+                        ${userPrompt ? `تعليمات إضافية: ${userPrompt}` : ''}`;
+                        
+                        parts.push({ text: finalPrompt });
+                        parts.push(await fileToGenerativePart(designFile));
+                        parts.push(await fileToGenerativePart(modelFile));
+
+                    } else if (currentMode === 'ghost') {
+                        // Ghost Mode: Send only the design and a different prompt
+                        finalPrompt = `أنت مصمم (Mockup) محترف. استخدم هذا التصميم (الصورة 1) وقم بإنشاء صورة (Mockup) احترافية له على (موديل خفي - Ghost Mannequin).
+                        يجب أن يكون التصوير بتصوير استوديو واقعي تمامًا، مع إضاءة مثالية وظلال ناعمة. 
+                        يجب أن يبدو المنتج وكأنه حقيقي معروض للبيع. 
+                        طبق تأثيرات القماش (fabric texture) وثنياته الطبيعية. لا أريد أي خطأ في التنفيذ.
+                        ${userPrompt ? `تعليمات إضافية: ${userPrompt}` : ''}`;
+
+                        parts.push({ text: finalPrompt });
+                        parts.push(await fileToGenerativePart(designFile));
+                    
+                    } else if (currentMode === 'product') {
+                        // 🚀 NEW: Product Studio Mode
+                        if (modelFile) {
+                            // User provided product + background
+                            finalPrompt = `أنت خبير دمج منتجات في مشاهد (Product Scene Integration). مهمتك هي دمج هذا المنتج (الصورة 1) داخل هذه الخلفية (الصورة 2) بشكل واقعي جداً.
+                            يجب تحليل اتجاه الضوء والظل في الخلفية وتطبيقه على المنتج.
+                            يجب أن يبدو المنتج كأنه جزء أصلي من المشهد. 
+                            استخدم "Stability Layer" لتثبيت المنتج في موضع منطقي.
+                            ${userPrompt ? `تعليمات إضافية لوضع المنتج: ${userPrompt}` : ''}`;
+                            
+                            parts.push({ text: finalPrompt });
+                            parts.push(await fileToGenerativePart(designFile));
+                            parts.push(await fileToGenerativePart(modelFile));
+                        } else {
+                            // User provided product ONLY
+                            finalPrompt = `أنت مصمم مشاهد منتجات (Product Scene Designer). مهمتك هي أخذ هذا المنتج (الصورة 1) ووضعه في خلفية احترافية من إنشائك.
+                            يجب أن تكون الخلفية مناسبة للمنتج. 
+                            قم بتطبيق إضاءة وظلال واقعية جداً.
+                            ${userPrompt ? `استخدم هذا الوصف لإنشاء الخلفية والمشهد: ${userPrompt}` : 'أنشئ مشهد استوديو بسيط ونظيف (Clean studio background) لإظهار المنتج.'}`;
+
+                            parts.push({ text: finalPrompt });
+                            parts.push(await fileToGenerativePart(designFile));
+                        }
+                    }
+                    
+                    const generationConfig = {
+                        responseModalities: ['IMAGE'] // We only want an image back
+                    };
+
+                    
+                    // 4. Make the API Call to OUR OWN Server
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        // بنبعت الداتا للسيرفر بتاعنا
+                        body: JSON.stringify({ parts: parts, generationConfig: generationConfig })
+                    });
+                    
+                    if (!response.ok) {
+                         const errorJson = await response.json();
+                         console.error("Server Error Details:", errorJson.details);
+                         throw new Error(`Our server error! status: ${response.status} - ${errorJson.message}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    // 5. Process the result from our server
+                    stopLoaderAnimation(); // إيقاف التحميل عند وصول النتيجة
+                    const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
+
+                    if (base64Data) {
+                        const imageUrl = `data:image/png;base64,${base64Data}`;
+                        
+                        // Display the *real* image
+                        resultImage.onload = () => {
+                            if (loaderEl) loaderEl.style.display = 'none';
+                            if (resultContainer) resultContainer.style.display = 'block';
+                        };
+                        resultImage.src = imageUrl;
+                        
+                    } else {
+                        console.log("Response from server didn't contain image data:", result);
+                        throw new Error("No image data found in API response from our server.");
+                    }
+                    
+                } catch (error) {
+                    console.error("Error calling our API:", error);
+                    stopLoaderAnimation();
+                    if (loaderEl) loaderEl.style.display = 'none';
+                    if (placeholderText) {
+                        placeholderText.textContent = `Error: ${error.message}`;
+                        placeholderText.style.display = 'block';
+                    }
+                }
+            }
+            
+            // --- Set initial mode ---
+            setMode('human');
+        });
+    </script>
+
+</body>
+</html>
